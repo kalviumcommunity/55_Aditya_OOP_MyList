@@ -16,19 +16,28 @@ public:
         : title(t), description(d), isCompleted(false) {}
 
     
-    void markAsCompleted() {
-        isCompleted = true;
+    Task& setTitle(const string& t) {
+        this->title = t;
+        return *this; 
     }
 
     
+    Task& setDescription(const string& d) {
+        this->description = d;
+        return *this; 
+    }
+
+    void markAsCompleted() {
+        this->isCompleted = true; 
+    }
+
     void displayTask() const {
         cout << "Title: " << title << ", Description: " << description
              << ", Status: " << (isCompleted ? "Completed" : "Pending") << endl;
     }
 
-    
     string getTitle() const {
-        return title;
+        return this->title;
     }
 };
 
@@ -39,12 +48,11 @@ private:
 public:
     // Add a task to the list
     void addTask(const Task& task) {
-        tasks.push_back(task);
+        this->tasks.push_back(task); 
     }
 
-    
     void markTaskAsCompleted(const string& title) {
-        for (auto& task : tasks) {
+        for (auto& task : this->tasks) { 
             if (task.getTitle() == title) {
                 task.markAsCompleted();
                 break;
@@ -61,25 +69,22 @@ public:
 };
 
 int main() {
-    // Create TaskManager object
+    
     TaskManager manager;
 
-    // Create Task objects
     Task task1("Buy groceries", "Buy milk, eggs, and bread");
     Task task2("Finish assignment", "Complete the OOP assignment");
 
-    // Add tasks to the manager
     manager.addTask(task1);
     manager.addTask(task2);
 
-    // Display all tasks
+    
     cout << "All tasks:" << endl;
     manager.displayAllTasks();
 
-
+    
     manager.markTaskAsCompleted("Buy groceries");
 
-    
     cout << "\nAll tasks after marking the first task as completed:" << endl;
     manager.displayAllTasks();
 
