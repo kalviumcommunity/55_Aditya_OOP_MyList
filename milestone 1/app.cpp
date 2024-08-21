@@ -58,7 +58,6 @@ public:
         }
     }
 
-
     void displayAllTasks() const {
         for (const auto& task : tasks) {
             task.displayTask();
@@ -67,32 +66,37 @@ public:
 };
 
 int main() {
-    
     TaskManager manager;
 
-    Task taskArray[] = {
-        Task("Buy groceries", "Buy milk, eggs, and bread"),
-        Task("Finish assignment", "Complete the OOP assignment"),
-        Task("Exercise", "Go for a run"),
-        Task("Read book", "Read 'The Great Gatsby'")
-    };
+    
+    Task* task1 = new Task("Buy groceries", "Buy milk, eggs, and bread");
+    Task* task2 = new Task("Finish assignment", "Complete the OOP assignment");
+    Task* task3 = new Task("Exercise", "Go for a run");
+    Task* task4 = new Task("Read book", "Read 'The Great Gatsby'");
 
     
-    for (const auto& task : taskArray) {
-        manager.addTask(task);
-    }
+    manager.addTask(*task1);
+    manager.addTask(*task2);
+    manager.addTask(*task3);
+    manager.addTask(*task4);
 
-    
+   
     cout << "All tasks:" << endl;
     manager.displayAllTasks();
 
-    
+   
     manager.markTaskAsCompleted("Buy groceries");
     manager.markTaskAsCompleted("Read book");
 
     
-    cout << "\nAll tasks after marking the first task as completed:" << endl;
+    cout << "\nAll tasks after marking some tasks as completed:" << endl;
     manager.displayAllTasks();
+
+    
+    delete task1;
+    delete task2;
+    delete task3;
+    delete task4;
 
     return 0;
 }
