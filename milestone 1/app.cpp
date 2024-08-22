@@ -11,7 +11,7 @@ private:
     bool isCompleted;
     
 public:
-    static int taskCount; 
+    static int taskCount;
 
     // Constructor
     Task(string t, string d)
@@ -41,8 +41,12 @@ public:
     string getTitle() const {
         return this->title;
     }
-};
 
+    
+    static int getTaskCount() {
+        return taskCount;
+    }
+};
 
 int Task::taskCount = 0;
 
@@ -51,7 +55,7 @@ private:
     vector<Task> tasks;
     
 public:
-    static int completedTasksCount;  
+    static int completedTasksCount;
 
     void addTask(const Task& task) {
         this->tasks.push_back(task);
@@ -73,7 +77,6 @@ public:
         }
     }
 };
-
 
 int TaskManager::completedTasksCount = 0;
 
@@ -100,7 +103,7 @@ int main() {
     manager.displayAllTasks();
 
     
-    cout << "\nTotal number of tasks created: " << Task::taskCount << endl;
+    cout << "\nTotal number of tasks created: " << Task::getTaskCount() << endl;
     cout << "Total number of tasks completed: " << TaskManager::completedTasksCount << endl;
 
     delete task1;
