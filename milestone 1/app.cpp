@@ -13,18 +13,22 @@ private:
 public:
     static int taskCount;  
 
-    
+    // Parameterized constructor
     Task(string t, string d)
         : title(t), description(d), isCompleted(false) {
         taskCount++;
     }
 
-    
+    // Destructor
+    ~Task() {
+        cout << "Task '" << title << "' is being destroyed." << endl;
+        taskCount--;
+    }
+
     string getTitle() const {
         return this->title;
     }
 
-    
     void setTitle(const string& t) {
         this->title = t;
     }
@@ -37,12 +41,10 @@ public:
         this->description = d;
     }
 
-    
     bool getIsCompleted() const {
         return this->isCompleted;
     }
 
-    
     void setIsCompleted(bool completed) {
         this->isCompleted = completed;
     }
@@ -61,7 +63,6 @@ public:
     }
 };
 
-
 int Task::taskCount = 0;
 
 class TaskManager {
@@ -71,7 +72,6 @@ private:
 public:
     static int completedTasksCount; 
 
-    
     const vector<Task>& getTasks() const {
         return this->tasks;
     }
@@ -107,25 +107,20 @@ int main() {
     Task task3("Exercise", "Go for a run");
     Task task4("Read book", "Read 'The Great Gatsby'");
 
-   
     manager.addTask(task1);
     manager.addTask(task2);
     manager.addTask(task3);
     manager.addTask(task4);
 
- 
     cout << "All tasks:" << endl;
     manager.displayAllTasks();
 
-    
     manager.markTaskAsCompleted("Buy groceries");
     manager.markTaskAsCompleted("Read book");
 
-   
     cout << "\nAll tasks after marking some tasks as completed:" << endl;
     manager.displayAllTasks();
 
-    
     cout << "\nTotal number of tasks created: " << Task::getTaskCount() << endl;
     cout << "Total number of tasks completed: " << TaskManager::completedTasksCount << endl;
 
