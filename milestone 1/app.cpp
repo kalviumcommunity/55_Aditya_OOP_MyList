@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 class Task {
 private:
     string title;
@@ -14,14 +13,12 @@ private:
 public:
     static int taskCount;
 
-    
     Task(string t, string d)
         : title(t), description(d), isCompleted(false) {
         taskCount++;
     }
 
-    
-    ~Task() {
+    virtual ~Task() {
         cout << "Task '" << title << "' is being destroyed." << endl;
         taskCount--;
     }
@@ -54,7 +51,7 @@ public:
         setIsCompleted(true);
     }
 
-    void displayTask() const {
+    virtual void displayTask() const {
         cout << "Title: " << getTitle() << ", Description: " << getDescription()
              << ", Status: " << (getIsCompleted() ? "Completed" : "Pending") << endl;
     }
@@ -71,7 +68,6 @@ private:
     int priority;
 
 public:
-    
     PriorityTask(string t, string d, int p)
         : Task(t, d), priority(p) {}
 
@@ -83,19 +79,17 @@ public:
         this->priority = p;
     }
 
-    void displayTask() const {
+    void displayTask() const override {
         Task::displayTask();
         cout << "Priority: " << getPriority() << endl;
     }
 };
-
 
 class TimedTask : public PriorityTask {
 private:
     string deadline;
 
 public:
-    
     TimedTask(string t, string d, int p, string dl)
         : PriorityTask(t, d, p), deadline(dl) {}
 
@@ -107,12 +101,11 @@ public:
         this->deadline = dl;
     }
 
-    void displayTask() const {
+    void displayTask() const override {
         PriorityTask::displayTask();
         cout << "Deadline: " << getDeadline() << endl;
     }
 };
-
 
 class TaskManager {
 private:
@@ -155,11 +148,9 @@ public:
 
 int TaskManager::completedTasksCount = 0;
 
-
 int main() {
     TaskManager manager;
 
-    
     Task* task1 = new Task("Buy groceries", "Buy milk, eggs, and bread");
     Task* priorityTask = new PriorityTask("Complete project", "Finish project by the weekend", 2);
     Task* timedTask = new TimedTask("Submit assignment", "Complete and submit the assignment", 1, "2024-10-15");
