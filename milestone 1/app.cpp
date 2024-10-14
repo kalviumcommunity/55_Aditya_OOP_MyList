@@ -51,15 +51,13 @@ public:
         setIsCompleted(true);
     }
 
-    virtual void displayTask() const {
-        cout << "Title: " << getTitle() << ", Description: " << getDescription()
-             << ", Status: " << (getIsCompleted() ? "Completed" : "Pending") << endl;
-    }
+    virtual void displayTask() const = 0; 
 
     static int getTaskCount() {
         return taskCount;
     }
 };
+
 
 int Task::taskCount = 0;
 
@@ -79,11 +77,14 @@ public:
         this->priority = p;
     }
 
+    
     void displayTask() const override {
-        Task::displayTask();
+        cout << "Title: " << getTitle() << ", Description: " << getDescription()
+             << ", Status: " << (getIsCompleted() ? "Completed" : "Pending") << endl;
         cout << "Priority: " << getPriority() << endl;
     }
 };
+
 
 class TimedTask : public PriorityTask {
 private:
@@ -151,8 +152,8 @@ int TaskManager::completedTasksCount = 0;
 int main() {
     TaskManager manager;
 
-    Task* task1 = new Task("Buy groceries", "Buy milk, eggs, and bread");
-    Task* priorityTask = new PriorityTask("Complete project", "Finish project by the weekend", 2);
+    Task* task1 = new PriorityTask("Buy groceries", "Buy milk, eggs, and bread", 2);
+    Task* priorityTask = new PriorityTask("Complete project", "Finish project by the weekend", 1);
     Task* timedTask = new TimedTask("Submit assignment", "Complete and submit the assignment", 1, "2024-10-15");
 
     manager.addTask(task1);
