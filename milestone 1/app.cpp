@@ -58,7 +58,6 @@ public:
     }
 };
 
-
 int Task::taskCount = 0;
 
 class PriorityTask : public Task {
@@ -77,14 +76,12 @@ public:
         this->priority = p;
     }
 
-    
     void displayTask() const override {
-        cout << "Title: " << getTitle() << ", Description: " << getDescription()
-             << ", Status: " << (getIsCompleted() ? "Completed" : "Pending") << endl;
-        cout << "Priority: " << getPriority() << endl;
+        cout << "[Priority Task] Title: " << getTitle() << ", Description: " << getDescription()
+             << ", Status: " << (getIsCompleted() ? "Completed" : "Pending") 
+             << ", Priority: " << getPriority() << endl;
     }
 };
-
 
 class TimedTask : public PriorityTask {
 private:
@@ -103,8 +100,9 @@ public:
     }
 
     void displayTask() const override {
-        PriorityTask::displayTask();
-        cout << "Deadline: " << getDeadline() << endl;
+        cout << "[Timed Task] Title: " << getTitle() << ", Description: " << getDescription()
+             << ", Status: " << (getIsCompleted() ? "Completed" : "Pending") 
+             << ", Priority: " << getPriority() << ", Deadline: " << getDeadline() << endl;
     }
 };
 
@@ -114,10 +112,6 @@ private:
 
 public:
     static int completedTasksCount;
-
-    const vector<Task*>& getTasks() const {
-        return this->tasks;
-    }
 
     void addTask(Task* task) {
         this->tasks.push_back(task);
@@ -134,7 +128,7 @@ public:
     }
 
     void displayAllTasks() const {
-        for (const auto& task : getTasks()) {
+        for (const auto& task : tasks) {
             task->displayTask();
             cout << endl;
         }
